@@ -43,16 +43,22 @@
 		        <a class="nav-link" href="#">Placeholder</a>
 		      </li>  
 		    </ul>
-		    <ul class="navbar-nav right ml-auto">
+		    <ul class="navbar-nav right ml-auto mr-5">
 		      <li class="nav-item" id="loginform">
 		        <?php
 							if(isset($_SESSION["usuario"])){
 						?>
-								<form action="/login/pages/login.php">
-								<a href="/pages/panelusuario.php" class="btn btn-primary"><i class="fa fa-user"></i></a>
-								<input type="submit" value="LogOut" name="logout" class="btn btn-info">
-								</form>
-								
+						<ul class="nav navbar-nav float-right">
+            	<li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user"></i><?=$_SESSION["usuario"]?></a>
+                	<div class="dropdown-menu"> 
+											<a class="nav-link" href="/login/pages/panelusuario.php">Modificar perfil</a>
+											<a class="nav-link" href="#">Cambiar contraseña</a>
+											<a class="nav-link active" href="/login/pages/login.php?logout=LogOut">Desconectar<span class="sr-only">(current)</span></a>
+                	</div>
+            	</li>
+        		</ul>								
 						<?php
 							}
 							else{

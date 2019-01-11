@@ -2,9 +2,15 @@
     session_start();
     include_once "../conf/database.php";
     include_once "../objects/user.php";
-    if(isset($_GET)&&isset($_COOKIE["idtochange"])){
+    if(isset($_GET["cambiar"])||isset($_COOKIE["idtochange"])){
             $usu = new User();
-            $usu->id = $_COOKIE["idtochange"];
+            if(isset($_COOKIE["idtochange"])){
+                $usu->id = $_COOKIE["idtochange"];
+            }
+            else{
+                $usu->id = $_SESSION["id"];
+            }
+            
 
             if(isset($_GET["usuario"])){
                 $usu->usuario = $_GET["usuario"];
@@ -14,6 +20,7 @@
                     $usu ->clave = $_GET["repeatclave"];
                 }
                 else{
+                    $usu->clave = null;
                     echo'<script type="text/javascript">
                     alert("¡Las contraseñas no coinciden!");
                     window.location.href="../modificarusu.php?";
@@ -40,7 +47,7 @@
         else{
             echo'<script type="text/javascript">
                     alert("¡Ha habido un error!");
-                    window.location.href="../modificarusu.php?";
+                    window.location.href="../pages/modificarusu.php?";
                 </script>';
         }
     }

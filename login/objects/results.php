@@ -41,13 +41,14 @@ class Results{
         $filas = $usu ->buscarUsuario();
         if(!empty($filas)){
 ?>
-                    <form action="/controlador/login.php" method="get" id="acceso">
-                        <img src="/img/login-icon.png" id="usericon">
+                    <form action="/login/controlador/modificarusu.php" method="get" id="acceso">
+                        <img src="/login/img/login-icon.png" id="usericon">
                         <!--Formulario de login-->
                         <span>Nombre:<input type="text" name="usuario" value="<?=$filas['usuario']?>"></span>
-                        <span>Email<input type="text" name="clave" value="<?=$filas['email']?>"></span>
+                        <span>Email<input type="text" name="email" value="<?=$filas['email']?>"></span>
                         <span>Nivel de acceso: </span>
                         <input type="checkbox" name="admin" <?php if($_SESSION["admin"] == true) echo "checked"; ?>>
+                        <input type="submit" value="Cambiar" name="cambiar" class='btn btn-primary'>
                     </form> 
 <?php
         }
