@@ -11,6 +11,7 @@
             if($usuexist && password_verify($_GET["clave"],$usu->clave)){
                 $_SESSION["id"]=$usu->id;
                 $_SESSION["usuario"]=$usu->usuario;
+                $_SESSION["email"]=$usu->email;
                 if($usu->esAdmin()){
                     $_SESSION["admin"]= true;
                     header('Location: ../pages/login.php');

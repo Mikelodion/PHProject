@@ -114,14 +114,19 @@ class User{
 
     }
     public function modificarUsuario(){
-        $sql =  "Update usuarios set usuario=:argusuario, clave=:argclave, email=:argemail, access_level=:argaccess_level where id=:argid";
-
-        $stmt=$this->conn->prepare($sql);
-
+        if(!empty($this->clave)){
+            $sql =  "Update usuarios set usuario=:argusuario, clave=:argclave, email=:argemail, access_level=:argaccess_level where id=:argid";
+            $stmt=$this->conn->prepare($sql);
+            $hashedclave = password_hash($this->clave, PASSWORD_BCRYPT);
+            $stmt-> bindParam(":argclave", $hashedclave);
+        }
+        else{
+            $sql =  "Update usuarios set usuario=:argusuario, email=:argemail, access_level=:argaccess_level where id=:argid";
+            $stmt=$this->conn->prepare($sql);
+        }
+        
         $stmt->bindParam(":argid", $this->id);
         $stmt-> bindParam(":argusuario", $this->usuario);
-        $hashedclave = password_hash($this->clave, PASSWORD_BCRYPT);
-        $stmt-> bindParam(":argclave", $hashedclave);
         $stmt-> bindParam(":argemail", $this->email);
         $stmt->bindParam(":argaccess_level", $this->access_level);
 

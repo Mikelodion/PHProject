@@ -26,7 +26,7 @@
 
         <div id="buttons">
             <a href="login.php" class="btn btn-primary">Volver</a>
-            <input type="submit" value="Cambiar" name="cambiar" class='btn btn-primary'>
+            <input type="submit" value="Cambiar" class='btn btn-primary'>
         </div>
     </form>
 <?php

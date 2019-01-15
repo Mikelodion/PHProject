@@ -10,8 +10,14 @@
         }
         if(isset($_SESSION["usuario"])){
             if($_SESSION["admin"]){
+                $consulta = new Consulta();
+                if(isset($_GET["usuario"])&& !empty($_GET["usuario"])){
+                    $filas = $consulta->searchUser($_GET["usuario"]);
+                }else{
+                    $filas = $consulta->getAll();   
+                }   
             $result = new Results();
-            $result->showAll();
+            $result->showAll($filas);
             }
             else{
                 echo "<h1>Ya has iniciado sesión</h1>"; 
