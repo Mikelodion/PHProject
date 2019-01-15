@@ -6,16 +6,29 @@ class Results{
         $this->conn=$db->getConection();
     }
     
-    public function showAll(){ //Muestra una tabla con todos los usuarios.
-        $consulta = new Consulta();
-        $filas = $consulta->getAll();
+    public function showAll($filas){ //Muestra una tabla con todos los usuarios.
         echo "<div id='userstable'>";
-        echo "<h1>Usuarios</h1>";
-        echo "<table class='table table-bordered' id='seeallusers'>";
+        echo "<h1 class='border-bottom'>Usuarios</h1>";
+        echo "<div class='row mb-2>";
+        echo    "<div class='col-md-3 float-left'>";
+        echo    "<form action='/login/pages/login.php' id='srch-form'>";
+        echo        "<div class='input-group-sm input-group-append'>";
+        echo            "<input type='text' class='form-control' placeholder='Introduzca su nombre ...' name='usuario' id='srch-term'>";
+        echo            "<button class='btn btn-primary btn-sm' type='submit'><i class='fa fa-search'></i></button>";        
+        echo        "</div>";        
+        echo    "</form>";                
+        echo    "<div class='float-right ml-3'>";   
+        echo        "<a href='/login/controlador/crearusuario.php' class='btn btn-primary btn-sm'>";   
+        echo            "<i class='fa fa-plus'></i> Crear Usuario";   
+        echo        "</a>";   
+        echo    "</div>";
+        echo    "</div>";   
+        echo "</div>";    
+        echo "<table class='table table-bordered table-hover table-striped' id='seeallusers'>";
             echo "<tr>";
             echo "<thead class='thead-light'>";
                 echo "<th>Nombre</th>";
-                echo "<th>Admin</th>";
+                echo "<th>Nivel de Acceso</th>";
                 echo "<th>Email</th>";
                 echo  "<th>Borrar</th>";
                 echo  "<th>Modificar</th>";
@@ -25,7 +38,8 @@ class Results{
         foreach ($filas as $fila) {
                 echo "<tr>";
                 echo "<td>".$fila['usuario']."</td>";
-                echo "<td>".$fila['access_level']."</td>";
+                            $accesslevel = ($fila["access_level"]==1) ? "Admin":"Usuario";
+                echo "<td>".$accesslevel."</td>";
                 echo "<td>".$fila['email']."</td>";
                 echo "<td><a href='../controlador/eliminarusu.php?eliminar=".$fila['id']."'>X</a></td>";
                 echo "<td><a href='modificarusu.php?modificar=".$fila['id']."'><i class='fa fa-cog'></i></a></td>";
